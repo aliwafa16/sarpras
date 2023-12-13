@@ -40,18 +40,21 @@
 
                 <li class="menu-title">Manajemen data</li><!-- /.menu-title -->
                 <li class="<?php echo ($menus == "jadwal_maintenance") ? "active" : "" ?>">
-                    <a href="<?= base_url('Jadwal_maintenance') ?>"> <i class="menu-icon ti-email"></i>Jadwal maintenance </a>
+                    <a href="<?= base_url('Maintenance') ?>"> <i class="menu-icon fa fa-calendar-o"></i>Jadwal maintenance </a>
+                </li>
+                <li class="<?php echo ($menus == "manajemen_asset") ? "active" : "" ?>">
+                    <a href="<?= base_url('Assets_management') ?>"> <i class="menu-icon fa fa-briefcase"></i>Aset </a>
                 </li>
                 <li class="menu-title">Setting</li><!-- /.menu-title -->
                 <li class="menu-item-has-children dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-glass"></i>Akun</a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa  fa-asterisk"></i>Akun</a>
                     <ul class="sub-menu children dropdown-menu">
                         <li><i class="menu-icon fa fa-user"></i><a href="page-login.html">User</a></li>
                         <li><i class="menu-icon fa fa-users"></i><a href="page-login.html">Role</a></li>
                     </ul>
                 </li>
                 <li class="menu-item-has-children <?php echo ($menus == "master_data") ? "active" : "" ?> dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-glass"></i>Master data</a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-folder-open-o"></i>Master data</a>
                     <ul class="sub-menu children dropdown-menu">
                         <li><i class="menu-icon fa fa-tasks"></i><a href="<?= base_url('main_category') ?>">Kategori Utama</a></li>
                         <li><i class="menu-icon fa fa-sitemap"></i><a href="<?= base_url('category') ?>">kategori</a></li>
