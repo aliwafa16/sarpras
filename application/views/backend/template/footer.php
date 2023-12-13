@@ -54,6 +54,9 @@
      $(document).ready(function() {
          $('.js-example-basic-single').select2();
          $('.js-example-basic-multiple').select2();
+
+
+         $('input').attr('autocomplete', 'off')
      });
      document.addEventListener("DOMContentLoaded", function() {
          var elements = document.getElementsByTagName("INPUT");

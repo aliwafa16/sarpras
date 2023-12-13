@@ -8,6 +8,8 @@ class Assets_management extends CI_Controller
         if (!$is_login) {
             redirect('Auth');
         }
+        $this->load->library('ciqrcode');
+
     }
 
     public function index()
@@ -49,20 +51,79 @@ class Assets_management extends CI_Controller
 
     public function add()
     {
+
+        $code = 'EBS' . date('YmdHis');
+        $main_category = $this->db->get('tbl_main_category')->result_array();
+        $category = $this->db->get('tbl_category')->result_array();
+        $location = $this->db->get('tbl_location')->result_array();
+        $condition = $this->db->select('tbl_condition.*')->from('tbl_condition')->order_by('condition', 'ASC')->get()->result_array();
+        $brand = $this->db->get('tbl_brand')->result_array();
+        // $condition = $this->db->get('tbl_condition')->result_array();
+
+        $status = $this->db->get('tbl_status')->result_array();
+
+        $this->db->select('tbl_type_brand.*, tbl_brand.brand');
+        $this->db->from('tbl_type_brand');
+        $this->db->join('tbl_brand', 'tbl_type_brand.brand_id=tbl_brand.id_brand', 'INNER');
+        $this->db->order_by('tbl_brand.brand');
+        $type_brand  = $this->db->get()->result_array();
+        
+
         $data = [
             'title' => 'Manajemen Aset - Tambah',
             'meta' => 'manajemen aset',
             'menus' => 'manajemen_asset',
+            'kode_asset' => $code,
+            'kategori_utama' => $main_category,
+            'kategori' => $category,
+            'lokasi' => $location,
+            'kondisi' => $condition,
+            'merek' => $brand,
+            'status' => $status,
+            'tipe' => $type_brand
         ];
 
-        $this->load->library('ciqrcode');
 
 
-        $params['data'] = '';
-        $params['level'] = 'H';
-        $params['size'] = 3000;
-        $results =  $this->ciqrcode->generate($params);
+
 
         $this->admin_template->view('backend/asset/add', $data);
+    }
+
+    public function addSubmit()
+    {
+        $response = [];
+        if (!$this->input->post('name_assets')) {
+            $response = ['code' => 403, 'status' => false, 'data' => null, 'message' => 'Nama aset tidak boleh kosong !!'];
+        } else {
+
+            // Generate QR
+            $params['data'] = base_url('SearchAsset') . '/' . $this->input->post('code_assets');
+            $params['level'] = 'H';
+            $params['size'] = 20;
+
+
+            $dataTambah = [
+                // 'qr_code' =>        $this->ciqrcode->generate($params),
+
+                'code_assets' => $this->input->post('code_assets'),
+                'name_assets' => $this->input->post('name_assets'),
+                'desc_assets' => $this->input->post('desc_assets'),
+                'main_category_id' => $this->input->post('main_category_id'),
+                'category_id' => $this->input->post('category_id'),
+                'location_id' => $this->input->post('location_id'),
+                'brand_id' => $this->input->post('brand_id'),
+                'type_brand_id' => $this->input->post('type_brand_id'),
+                'condition_id' => $this->input->post('condition_id'),
+                'status_id' => $this->input->post('status_id'),
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s')
+
+            ];
+
+            var_dump($dataTambah);
+        }
+
+        echo json_encode($response);
     }
 }

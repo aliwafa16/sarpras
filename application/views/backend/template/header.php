@@ -97,6 +97,14 @@
         #cellPaiChart {
             height: 160px;
         }
+
+        .select2-selection__rendered {
+            line-height: 34px !important;
+        }
+
+        .select2-selection {
+            height: 34px !important;
+        }
     </style>
 </head>
 
