@@ -57,7 +57,7 @@ class Assets_management extends CI_Controller
 
         $this->load->library('ciqrcode');
 
-        // header("Content-Type: image/png");
+
         $params['data'] = '';
         $params['level'] = 'H';
         $params['size'] = 3000;
